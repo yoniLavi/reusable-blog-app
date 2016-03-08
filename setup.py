@@ -31,6 +31,6 @@ setup(
     install_requires=[
         'Pillow',
         'django_forms_bootstrap',
-        'disqus'
+        'django-disqus'
     ]
 )
