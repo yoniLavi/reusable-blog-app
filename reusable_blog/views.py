@@ -6,12 +6,14 @@ from django.shortcuts import redirect
 
 
 def post_list(request):
+    all_past_posts = Post.objects.filter(published_date__lte=timezone.now())
     top = request.GET.get('top', False)
     if top:
-        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-views')[:3]
+        posts = all_past_posts.order_by('-views')[:3]
     else:
-        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+        posts = all_past_posts.order_by('-published_date')
     return render(request, "blog/blogtests.html", {'posts': posts})
+
 
 def post_detail(request, id):
     post = get_object_or_404(Post, pk=id)
